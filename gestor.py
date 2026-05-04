@@ -1,6 +1,31 @@
 tareas = []
 
-# Usamos un bucle infinito
+def agregar_tarea():
+    new_task = input("Ingrese la tarea a añadir: ")
+    tareas.append(new_task)
+    print("¡Tarea añadida!")
+    
+def eliminar_tarea():
+    print(tareas)
+    
+    try:
+        indice = input("Ingrese el numero de tarea a eliminar: ")
+        tarea_eliminada = tareas.pop(indice - 1 )
+        print(f"Tarea {tarea_eliminada} eliminda con exito")
+    except ValueError:
+        print("Debes ingresar un numero de la tarea")
+    except IndexError: 
+        print("El indice propuesto no existe.")
+        
+
+
+def mostrar_tareas():
+    print("\n--- TUS TAREAS ---")
+    for i in range(len(tareas)):
+        print(f"{i - 1}. {tareas[i - 1]}")
+    print("------------------")
+    
+
 while True:
     try: 
         condicion = int(input("""
@@ -13,36 +38,19 @@ Elige una opción: """))
         # Manejo del error si el usuario no introduce un número
         print("Por favor, introduce un número válido.")
         continue 
-        
+    
     if condicion == 1:
-        tarea_nueva = input("Ingrese la tarea a añadir: ")
-        tareas.append(tarea_nueva)
-        print("¡Tarea añadida!")
+        agregar_tarea()
         
-    elif condicion == 2: 
-        print("\n--- TUS TAREAS ---")
-        # Imprimimos las tareas con un número al lado para poder borrarlas luego
-        for i in range(len(tareas)):
-            print(f"{i + 1}. {tareas[i]}")
-        print("------------------")
-            
+    elif condicion == 2:
+        mostrar_tareas()
+        
     elif condicion == 3:
-        print("¡Hasta luego!")
-        break # Esta instrucción sale del bucle completamente
+        print("Hasta luego")
+        break
         
     elif condicion == 4:
-        # Mostramos las tareas antes de pedir cuál borrar
-        print(tareas)
-        try:
-            indice = int(input("Ingrese el NÚMERO de la tarea a eliminar: "))
-            # Restamos 1 porque las listas en programación empiezan en el índice 0
-            tarea_eliminada = tareas.pop(indice - 1)
-            print(f"Tarea '{tarea_eliminada}' eliminada con éxito.")
-        except ValueError:
-            print("Debes ingresar el número de la tarea, no texto.")
-        except IndexError:
-            # Capturamos el error si intenta borrar, por ejemplo, la tarea 5 y solo hay 2
-            print("Ese número de tarea no existe. Intenta de nuevo.")
-            
-    else:
-        print("Opción no válida. Intenta de nuevo.")
+        eliminar_tarea()
+    
+    else: 
+        print("Ingrese otra opcion")
